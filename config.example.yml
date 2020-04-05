@@ -1,0 +1,70 @@
+# This example config file shows some of the features available in iocingestor.
+# It will not run as-is, since it's missing credentials and several of the
+# plugins point to services you probably don't have.
+
+general:
+  # You always need this section!
+  # Here are some sane values to include:
+  daemon: true
+  sleep: 900
+  state_path: state.db
+
+credentials:
+  # This section is optional. Use it to define credentials to reference below
+  # in the source and operator sections.
+  - name: twitter-auth
+    # https://dev.twitter.com/oauth/overview/application-owner-access-tokens
+    api_key:
+    api_secret_key:
+    access_token:
+    access_token_secret:
+
+  - name: misp-auth
+    url: https://mymisp
+    key: MY_API_KEY
+    ssl: False
+
+sources:
+  # This section defines each of the input sources for iocingestor.
+  # Define as many as you want. iocingestor maintains a "state" for each of
+  # your sources, which helps pull in only new content since the last run.
+  - name: twitter-inquest-c2-list
+    module: twitter
+    credentials: twitter-auth
+    # https://dev.twitter.com/rest/reference/get/lists/statuses
+    owner_screen_name: InQuest
+    slug: IOC-feed
+
+  - name: twitter-open-directory
+    module: twitter
+    credentials: twitter-auth
+    # https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets.html
+    q: '"open directory" #malware'
+
+  - name: rss-inquest-blog
+    module: rss
+    url: https://inquest.net/blog/rss
+    feed_type: messy
+
+operators:
+  # This section defines outputs for the information extracted from your
+  # sources. All filtering and flow control is done here, with options like
+  # "allowed_sources", "artifact_types", and "filter".
+  - name: csv
+    # Write artifacts to a CSV file
+    module: csv
+    filename: output.csv
+
+  - name: sqlite-db
+    module: sqlite
+    filename: artifacts.db
+
+  - name: misp-instance
+    module: misp
+    credentials: misp-auth
+
+whitelists:
+  # This section defines whitelists for the IoC extraction.
+  # A whitelist should be a JSON with MISP warninglist compliant format.
+  # e.g. https://raw.githubusercontent.com/MISP/misp-warninglists/master/lists/alexa/list.json
+  - /tmp/list.json
