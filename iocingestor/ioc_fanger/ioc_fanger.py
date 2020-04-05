@@ -6,7 +6,14 @@ import json
 import os
 import re
 
-import iocingestor.ioc_fanger.grammars as grammars
+try:
+    import iocingestor.ioc_fanger.grammars as grammars
+except AttributeError:
+    import sys
+
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
+    import grammars
+
 
 FANG_DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "./fang.json"))
 
