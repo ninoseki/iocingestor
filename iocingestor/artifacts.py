@@ -73,12 +73,13 @@ class URL(Artifact):
         for condition in conditions:
             if condition.lstrip(NOT) not in URL.__dict__:
                 raise ValueError("not a condition expression")
-            else:
-                result = URL.__dict__[condition.lstrip(NOT)](self)
-                if condition.startswith(NOT) and result:
-                    return False
-                elif not condition.startswith(NOT) and not result:
-                    return False
+
+            result = URL.__dict__[condition.lstrip(NOT)](self)
+            if condition.startswith(NOT) and result:
+                return False
+            if not condition.startswith(NOT) and not result:
+                return False
+
         return True
 
     def match(self, pattern: str):
@@ -246,10 +247,10 @@ class IPAddress(Artifact):
         version = self.version
         if version == 4:
             return ipaddress.IPv4Address(self._stringify())
-        elif version == 6:
+        if version == 6:
             return ipaddress.IPv6Address(self._stringify())
-        else:
-            raise ValueError("Invalid IP address '{ip}'".format(ip=self.artifact))
+
+        raise ValueError("Invalid IP address '{ip}'".format(ip=self.artifact))
 
 
 class Domain(Artifact):
@@ -295,14 +296,14 @@ class Hash(Artifact):
         """Return the hash type as a string, or None."""
         if len(self.artifact) == 32:
             return self.MD5
-        elif len(self.artifact) == 40:
+        if len(self.artifact) == 40:
             return self.SHA1
-        elif len(self.artifact) == 64:
+        if len(self.artifact) == 64:
             return self.SHA256
-        elif len(self.artifact) == 128:
+        if len(self.artifact) == 128:
             return self.SHA512
-        else:
-            return None
+
+        return None
 
 
 class Task(Artifact):
