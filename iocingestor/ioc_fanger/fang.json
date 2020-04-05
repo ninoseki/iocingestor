@@ -1,0 +1,70 @@
+[
+  {
+    "find": "[://]",
+    "replace": "://"
+  },
+  {
+    "find": ":///+",
+    "replace": "://",
+    "regex": true
+  },
+  {
+    "find": "(https?)//",
+    "replace": "\\1://",
+    "regex": true
+  },
+  {
+    "find": "(ps?) +://",
+    "replace": "\\1://",
+    "regex": true
+  },
+  {
+    "find": "(https?):// +",
+    "replace": "\\1://",
+    "regex": true
+  },
+  {
+    "find": "http[^s]://",
+    "replace": "https://",
+    "regex": true
+  },
+  {
+    "find": "https\\S://",
+    "replace": "https://",
+    "regex": true
+  },
+  {
+    "find": "hxxps://",
+    "replace": "https://"
+  },
+  {
+    "find": "hxxp://",
+    "replace": "http://"
+  },
+  {
+    "find": "[-]",
+    "replace": "-"
+  },
+  {
+    "find": "\\.",
+    "replace": "."
+  },
+  {
+    "find": "\\/",
+    "replace": "/"
+  },
+  {
+    "find": "^.",
+    "replace": "."
+  },
+  {
+    "find": " +@ +",
+    "replace": "@",
+    "regex": true
+  },
+  {
+    "find": "([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3})",
+    "replace": "\\1.\\2.\\3.\\4",
+    "regex": true
+  }
+]
