@@ -85,7 +85,7 @@ def list_view(table):
     if table == "index":
         return tables
 
-    elif table and table in tables:
+    if table and table in tables:
         cursor.execute(f"SELECT * FROM {table}")
 
         data = []
@@ -95,11 +95,10 @@ def list_view(table):
 
         return data
 
-    elif table:
+    if table:
         return f"No table {table}"
 
-    else:
-        return tables
+    return tables
 
 
 @hug.get("/{table}", output=hug.output_format.html)
