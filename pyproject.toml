@@ -5,7 +5,7 @@ description = "Extract and aggregate IOCs from threat feeds."
 authors = ["Manabu Niseki <manabu.niseki@gmail.com>", "InQuest Labs <labs@inquest.net>"]
 homepage = "https://github.com/ninoseki/iocingestor"
 repository = "https://github.com/ninoseki/iocingestor"
-license = "GPL"
+license = "GPL-2.0-or-later"
 
 [tool.poetry.dependencies]
 python = "^3.6"
