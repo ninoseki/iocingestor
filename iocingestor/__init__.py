@@ -79,7 +79,7 @@ class Ingestor:
             logger.exception("Error loading whitelists")
             sys.exit(1)
 
-    def check_whitelist(self, artifact: Type[Artifact]) -> bool:
+    def _contains_in_whitelist(self, artifact: Type[Artifact]) -> bool:
         if self.whitelist.contains(str(artifact)):
             logger.debug(
                 f"Reject {str(artifact)} from further processing because it is whitelisetd"
@@ -121,7 +121,9 @@ class Ingestor:
 
             # Reject whitelisted artifacts
             artifacts = [
-                artifact for artifact in artifacts if self.check_whitelist(artifact)
+                artifact
+                for artifact in artifacts
+                if not self._contains_in_whitelist(artifact)
             ]
 
             # Process artifacts with each operator.
