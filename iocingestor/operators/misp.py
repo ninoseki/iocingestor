@@ -21,6 +21,7 @@ class Plugin(Operator):
         artifact_types: Optional[List[Type[Artifact]]] = None,
         filter_string: Optional[str] = None,
         allowed_sources: Optional[List[str]] = None,
+        include_artifact_source_name: bool = True,
     ):
         """MISP operator."""
         self.api = pymisp.ExpandedPyMISP(url, key, ssl)
@@ -33,6 +34,8 @@ class Plugin(Operator):
 
         super(Plugin, self).__init__(artifact_types, filter_string, allowed_sources)
         self.artifact_types = artifact_types or [Domain, Hash, IPAddress, URL]
+
+        self.include_artifact_source_name = include_artifact_source_name
 
     def handle_artifact(self, artifact):
         """Operate on a single artifact."""
@@ -108,7 +111,7 @@ class Plugin(Operator):
             event.add_attribute("link", artifact.reference_link)
         if artifact.reference_text != "":
             event.add_attribute("text", artifact.reference_text)
-        if artifact.source_name != "":
+        if artifact.source_name != "" and self.include_artifact_source_name:
             event.add_attribute("other", f"source:{artifact.source_name}")
 
         return event
