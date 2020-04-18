@@ -115,3 +115,21 @@ class TestThreatKB(unittest.TestCase):
             ).allowed_sources,
             ["test-one"],
         )
+
+    @patch("pymisp.ExpandedPyMISP")
+    def test_include_artifact_source_name(self, ExpandedPyMISP):
+        self.assertFalse(
+            iocingestor.operators.misp.Plugin(
+                "a", "b", include_artifact_source_name=False
+            ).include_artifact_source_name,
+        )
+
+        misp = iocingestor.operators.misp.Plugin(
+            "a", "b", include_artifact_source_name=False
+        )
+
+        ipaddress = iocingestor.artifacts.IPAddress("123.123.123.123", "source", "")
+        event = misp._create_event(ipaddress)
+        event = misp.handle_ipaddress(event, ipaddress)
+        attribute_types = [attribute.type for attribute in event.attributes]
+        self.assertNotIn("other", attribute_types)
