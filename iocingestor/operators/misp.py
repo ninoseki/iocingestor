@@ -22,6 +22,7 @@ class Plugin(Operator):
         filter_string: Optional[str] = None,
         allowed_sources: Optional[List[str]] = None,
         include_artifact_source_name: bool = True,
+        include_event_id_in_info: bool = False,
     ):
         """MISP operator."""
         self.api = pymisp.ExpandedPyMISP(url, key, ssl)
@@ -36,8 +37,9 @@ class Plugin(Operator):
         self.artifact_types = artifact_types or [Domain, Hash, IPAddress, URL]
 
         self.include_artifact_source_name = include_artifact_source_name
+        self.include_event_id_in_info = include_event_id_in_info
 
-    def handle_artifact(self, artifact):
+    def handle_artifact(self, artifact) -> MISPEvent:
         """Operate on a single artifact."""
         event = self._find_or_create_event(artifact)
 
@@ -50,30 +52,33 @@ class Plugin(Operator):
         if isinstance(artifact, URL):
             event = self.handle_url(event, artifact)
 
-        self._update_or_create_event(event)
+        return self._update_or_create_event(event)
 
-    def _update_event_info(self, event: MISPEvent):
+    def _update_event_info(self, event: MISPEvent) -> MISPEvent:
         """Update info of an event"""
         if str(event.id) in event.info:
-            return
+            return event
 
         # Add an ID of an envet as a reference
         event.info = f"{event.info},{event.id}"
-        self.api.update_event(event)
+        return cast(MISPEvent, self.api.update_event(event))
 
-    def _update_or_create_event(self, event: MISPEvent):
+    def _update_or_create_event(self, event: MISPEvent) -> MISPEvent:
         """Update or create an event for the artifact."""
         event_dict = event.to_dict()
         attributes = event_dict.get("Attribute", [])
         if len(attributes) == 0:
-            return
+            return event
 
         if event_dict.get("id") is None:
             event = cast(MISPEvent, self.api.add_event(event, pythonify=True))
         else:
             event = cast(MISPEvent, self.api.update_event(event, pythonify=True))
 
-        self._update_event_info(event)
+        if self.include_event_id_in_info:
+            return self._update_event_info(event)
+
+        return event
 
     def _find_or_create_event(self, artifact: Type[Artifact]) -> MISPEvent:
         """Find or create an event for the artifact."""

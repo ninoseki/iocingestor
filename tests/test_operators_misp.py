@@ -133,3 +133,11 @@ class TestThreatKB(unittest.TestCase):
         event = misp.handle_ipaddress(event, ipaddress)
         attribute_types = [attribute.type for attribute in event.attributes]
         self.assertNotIn("other", attribute_types)
+
+    @patch("pymisp.ExpandedPyMISP")
+    def test_include_include_event_id_in_info(self, ExpandedPyMISP):
+        self.assertTrue(
+            iocingestor.operators.misp.Plugin(
+                "a", "b", include_event_id_in_info=True
+            ).include_event_id_in_info
+        )
