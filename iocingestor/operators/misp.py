@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
-from typing import List, Optional, Type, cast
+from typing import List, Optional, Type, Union, cast
 
 import pymisp
-from pymisp import MISPEvent
+from pymisp import MISPAttribute, MISPEvent
 
 from iocingestor.artifacts import URL, Artifact, Domain, Hash, IPAddress
 from iocingestor.operators import Operator
@@ -85,15 +85,19 @@ class Plugin(Operator):
 
     def _find_event(self, artifact: Type[Artifact]) -> Optional[MISPEvent]:
         """Find an event which has the same refetrence link, return an Event object."""
-        events = self.api.search(
-            "events",
-            limit=1,
-            type_attribute="link",
-            value=artifact.reference_link,
-            pythonify=True,
+        events = cast(
+            List[Union[MISPEvent, MISPAttribute]],
+            self.api.search(
+                "events",
+                limit=1,
+                type_attribute="link",
+                value=artifact.reference_link,
+                pythonify=True,
+            ),
         )
-        if len(events) == 1:
-            return events[0]
+        events_ = cast(List[MISPEvent], events)
+        if len(events_) == 1:
+            return events_[0]
 
         return None
 
