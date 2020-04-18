@@ -1,5 +1,4 @@
 import unittest
-from unittest.mock import ANY as MOCK_ANY
 from unittest.mock import patch
 
 import iocingestor.artifacts
