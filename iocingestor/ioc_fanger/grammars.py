@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from pyparsing import (
     CaselessLiteral,
     Combine,

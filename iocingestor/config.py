@@ -1,5 +1,4 @@
 import importlib
-import io
 
 import yaml
 from loguru import logger
@@ -28,7 +27,7 @@ class Config:
     def __init__(self, filename: str):
         """Read a config file."""
         self.filename = filename
-        with io.open(self.filename, "r") as f:
+        with open(self.filename) as f:
             try:
                 self.config = yaml.safe_load(f.read())
             except yaml.error.YAMLError:
@@ -44,9 +43,7 @@ class Config:
             module = importlib.import_module(".".join([plugin_type, plugin]))
             return module.Plugin
         except (ImportError, AttributeError):
-            raise PluginError(
-                "No valid plugin '{p}' in '{t}'".format(p=plugin, t=plugin_type)
-            )
+            raise PluginError(f"No valid plugin '{plugin}' in '{plugin_type}'")
 
     def daemon(self):
         """Returns boolean, are we daemonizing?"""

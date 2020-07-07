@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 import iocextract
 
 
-class Artifact(object):
+class Artifact:
     """Artifact base class."""
 
     def __init__(
@@ -107,7 +107,7 @@ class URL(Artifact):
             return self._match_expression(pattern)
         except ValueError:
             # not a valid condition expression, treat as regex instead
-            return super(URL, self).match(pattern)
+            return super().match(pattern)
 
     def format_message(self, message: str, **kwargs):
         """Allow string interpolation with artifact contents.
@@ -119,7 +119,7 @@ class URL(Artifact):
         * {domain}
         * All supported variables from Artifact.format_message
         """
-        return super(URL, self).format_message(
+        return super().format_message(
             message,
             url=str(self),
             domain=self.domain(),
@@ -217,7 +217,7 @@ class IPAddress(Artifact):
         * {defanged}
         * All supported variables from Artifact.format_message
         """
-        return super(IPAddress, self).format_message(
+        return super().format_message(
             message, ipaddress=str(self), defanged=iocextract.defang(str(self))
         )
 
@@ -250,7 +250,7 @@ class IPAddress(Artifact):
         if version == 6:
             return ipaddress.IPv6Address(self._stringify())
 
-        raise ValueError("Invalid IP address '{ip}'".format(ip=self.artifact))
+        raise ValueError(f"Invalid IP address '{self.artifact}'")
 
 
 class Domain(Artifact):
@@ -265,7 +265,7 @@ class Domain(Artifact):
         * {defanged}
         * All supported variables from Artifact.format_message
         """
-        return super(Domain, self).format_message(
+        return super().format_message(
             message, domain=str(self), defanged=iocextract.defang(str(self))
         )
 
@@ -288,7 +288,7 @@ class Hash(Artifact):
         * {hash_type}
         * All supported variables from Artifact.format_message
         """
-        return super(Hash, self).format_message(
+        return super().format_message(
             message, hash=str(self), hash_type=self.hash_type() or "hash"
         )
 
@@ -317,7 +317,7 @@ class Task(Artifact):
         * {task}
         * All supported variables from Artifact.format_message
         """
-        return super(Task, self).format_message(message, task=str(self))
+        return super().format_message(message, task=str(self))
 
 
 # Define string mappings for artifact types.

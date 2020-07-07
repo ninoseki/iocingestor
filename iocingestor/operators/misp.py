@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 from typing import List, Optional, Type, Union, cast
 
 import pymisp
@@ -33,7 +31,7 @@ class Plugin(Operator):
         self.event_info = "{source_name}"
         self.url = url
 
-        super(Plugin, self).__init__(artifact_types, filter_string, allowed_sources)
+        super().__init__(artifact_types, filter_string, allowed_sources)
         self.artifact_types = artifact_types or [Domain, Hash, IPAddress, URL]
 
         self.include_artifact_source_name = include_artifact_source_name
