@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 """Fang indicators of compromise."""
-
 import json
 import os
 import re
 
 try:
-    import iocingestor.ioc_fanger.grammars as grammars
+    from iocingestor.ioc_fanger import grammars as grammars
 except AttributeError:
     import sys
 
