@@ -1,6 +1,4 @@
-import json
 import unittest
-from unittest.mock import Mock, patch
 
 import iocingestor.artifacts
 import iocingestor.exceptions

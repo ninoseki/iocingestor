@@ -17,7 +17,7 @@ class AbstractPlugin(Operator):
         # kwargs are used to dynamically form message body
         self.kwargs = kwargs
 
-        super(AbstractPlugin, self).__init__(
+        super().__init__(
             artifact_types=artifact_types,
             filter_string=filter_string,
             allowed_sources=allowed_sources,
@@ -27,9 +27,7 @@ class AbstractPlugin(Operator):
 
     def handle_artifact(self, artifact: Type[Artifact]):
         """Operate on a single artifact"""
-        message_body = dict(
-            [(k, artifact.format_message(v)) for (k, v) in self.kwargs.items()]
-        )
+        message_body = {k: artifact.format_message(v) for (k, v) in self.kwargs.items()}
         self._put(message_body)
 
     def _put(self, content: str):

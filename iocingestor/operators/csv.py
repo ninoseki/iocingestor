@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import csv
 from typing import List, Optional, Type
 
@@ -20,7 +18,7 @@ class Plugin(Operator):
         """CSV operator."""
         self.filename = filename
 
-        super(Plugin, self).__init__(artifact_types, filter_string, allowed_sources)
+        super().__init__(artifact_types, filter_string, allowed_sources)
         self.artifact_types = artifact_types or [
             Domain,
             Hash,

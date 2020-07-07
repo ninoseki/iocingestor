@@ -1,7 +1,5 @@
-from __future__ import absolute_import
-
 import sqlite3
-from typing import List, Optional, Type, cast
+from typing import List, Optional, Type
 
 from iocingestor.artifacts import URL, Artifact, Domain, Hash, IPAddress, Task
 from iocingestor.operators import Operator
@@ -18,7 +16,7 @@ class Plugin(Operator):
         allowed_sources: Optional[List[str]] = None,
     ):
         """SQLite3 operator."""
-        super(Plugin, self).__init__(artifact_types, filter_string, allowed_sources)
+        super().__init__(artifact_types, filter_string, allowed_sources)
         self.artifact_types = artifact_types or [
             Domain,
             Hash,

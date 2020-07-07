@@ -750,6 +750,17 @@ version = "2.8.1"
 six = ">=1.5"
 
 [[package]]
+category = "dev"
+description = "A tool to automatically upgrade syntax for newer versions."
+name = "pyupgrade"
+optional = false
+python-versions = ">=3.6.1"
+version = "2.6.2"
+
+[package.dependencies]
+tokenize-rt = ">=3.2.0"
+
+[[package]]
 category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
@@ -840,6 +851,14 @@ name = "statsd"
 optional = false
 python-versions = "*"
 version = "3.3.0"
+
+[[package]]
+category = "dev"
+description = "A wrapper around the stdlib `tokenize` which roundtrips."
+name = "tokenize-rt"
+optional = false
+python-versions = ">=3.6.1"
+version = "4.0.0"
 
 [[package]]
 category = "dev"
@@ -953,7 +972,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "8646649b6e0bf61a3b752588355944bed05531df2d757ac053582bffe5b88953"
+content-hash = "9f1a3d7d10b800782b94eb2c232d4b4d514aa2d8eebce068b7a4bf868c24c2d9"
 python-versions = "^3.6.1"
 
 [metadata.files]
@@ -1288,6 +1307,10 @@ python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},
     {file = "python_dateutil-2.8.1-py2.py3-none-any.whl", hash = "sha256:75bb3f31ea686f1197762692a9ee6a7550b59fc6ca3a1f4b5d7e32fb98e2da2a"},
 ]
+pyupgrade = [
+    {file = "pyupgrade-2.6.2-py2.py3-none-any.whl", hash = "sha256:ce74bf0968e4d23e2e39df7c9bc2767959bc047bf026c07f922d392a8dbb30d6"},
+    {file = "pyupgrade-2.6.2.tar.gz", hash = "sha256:c54dd88e557f2c452d3418ee0ac1f5e5453f38c0b087532e3e0b2b6d6d100d07"},
+]
 pyyaml = [
     {file = "PyYAML-5.3.1-cp27-cp27m-win32.whl", hash = "sha256:74809a57b329d6cc0fdccee6318f44b9b8649961fa73144a98735b0aaf029f1f"},
     {file = "PyYAML-5.3.1-cp27-cp27m-win_amd64.whl", hash = "sha256:240097ff019d7c70a4922b6869d8a86407758333f02203e0fc6ff79c5dcede76"},
@@ -1350,6 +1373,10 @@ soupsieve = [
 statsd = [
     {file = "statsd-3.3.0-py2.py3-none-any.whl", hash = "sha256:c610fb80347fca0ef62666d241bce64184bd7cc1efe582f9690e045c25535eaa"},
     {file = "statsd-3.3.0.tar.gz", hash = "sha256:e3e6db4c246f7c59003e51c9720a51a7f39a396541cb9b147ff4b14d15b5dd1f"},
+]
+tokenize-rt = [
+    {file = "tokenize_rt-4.0.0-py2.py3-none-any.whl", hash = "sha256:c47d3bd00857c24edefccdd6dc99c19d4ceed77c5971a3e2fac007fb0c02e39d"},
+    {file = "tokenize_rt-4.0.0.tar.gz", hash = "sha256:07d5f88b6a953612159b160129bcf9425677c8d062b0cb83250968ba803e1c64"},
 ]
 toml = [
     {file = "toml-0.10.0-py2.7.egg", hash = "sha256:f1db651f9657708513243e61e6cc67d101a39bad662eaa9b5546f789338e07a3"},

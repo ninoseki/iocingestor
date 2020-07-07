@@ -13,7 +13,7 @@ class TestArtifacts(unittest.TestCase):
             type(iocingestor.artifacts.Artifact("test", "test").__str__()), str
         )
         self.assertEqual(
-            type(iocingestor.artifacts.Artifact(u"t\u1111st", "test").__str__()), str
+            type(iocingestor.artifacts.Artifact("t\u1111st", "test").__str__()), str
         )
 
     def test_url_ipv4(self):
@@ -134,7 +134,7 @@ class TestArtifacts(unittest.TestCase):
             "http://example.com",
         )
         self.assertEqual(
-            iocingestor.artifacts.URL(u"http://example\u30fbcom", "").deobfuscated(),
+            iocingestor.artifacts.URL("http://example\u30fbcom", "").deobfuscated(),
             "http://example.com",
         )
         self.assertEqual(
@@ -192,7 +192,7 @@ class TestArtifacts(unittest.TestCase):
         )
         self.assertTrue(iocingestor.artifacts.URL("http://ex4mple.com", "").is_domain())
         self.assertTrue(
-            iocingestor.artifacts.URL(u"http://example\u30fbcom", "").is_domain()
+            iocingestor.artifacts.URL("http://example\u30fbcom", "").is_domain()
         )
         self.assertTrue(iocingestor.artifacts.URL("short.is", "").is_domain())
         # invalid
@@ -204,7 +204,7 @@ class TestArtifacts(unittest.TestCase):
         self.assertFalse(iocingestor.artifacts.URL("+example.tld+", "").is_domain())
         self.assertFalse(iocingestor.artifacts.URL("85", "").is_domain())
         self.assertFalse(iocingestor.artifacts.URL("85.85", "").is_domain())
-        self.assertFalse(iocingestor.artifacts.URL(u"exa\u30f2ple.com", "").is_domain())
+        self.assertFalse(iocingestor.artifacts.URL("exa\u30f2ple.com", "").is_domain())
         self.assertFalse(iocingestor.artifacts.URL("_____", "").is_domain())
         self.assertFalse(iocingestor.artifacts.URL("_____.tld", "").is_domain())
         self.assertFalse(
@@ -266,39 +266,39 @@ class TestArtifacts(unittest.TestCase):
         # ipaddress
         self.assertEqual(
             iocingestor.artifacts.IPAddress("192[.]168[.]0[.]1", "").ipaddress(),
-            ipaddress.IPv4Address(u"192.168.0.1"),
+            ipaddress.IPv4Address("192.168.0.1"),
         )
         self.assertEqual(
             iocingestor.artifacts.IPAddress("192.168.0.1/some/url", "").ipaddress(),
-            ipaddress.IPv4Address(u"192.168.0.1"),
+            ipaddress.IPv4Address("192.168.0.1"),
         )
         self.assertEqual(
             iocingestor.artifacts.IPAddress("192.168.0.1:9090", "").ipaddress(),
-            ipaddress.IPv4Address(u"192.168.0.1"),
+            ipaddress.IPv4Address("192.168.0.1"),
         )
         self.assertEqual(
             iocingestor.artifacts.IPAddress("192.168.0.1:9090/url", "").ipaddress(),
-            ipaddress.IPv4Address(u"192.168.0.1"),
+            ipaddress.IPv4Address("192.168.0.1"),
         )
         self.assertEqual(
             iocingestor.artifacts.IPAddress(
                 "192[.]168[.]0[.]1:9090/url", ""
             ).ipaddress(),
-            ipaddress.IPv4Address(u"192.168.0.1"),
+            ipaddress.IPv4Address("192.168.0.1"),
         )
 
     def test_match_artifact_regex(self):
         self.assertTrue(iocingestor.artifacts.IPAddress("192.168.0.1", "").match("192"))
         self.assertTrue(iocingestor.artifacts.IPAddress("192.168.0.1", "").match("168"))
         self.assertTrue(
-            iocingestor.artifacts.IPAddress("192.168.0.1", "").match("192\.168")
+            iocingestor.artifacts.IPAddress("192.168.0.1", "").match(r"192\.168")
         )
         self.assertTrue(iocingestor.artifacts.IPAddress("192.168.0.1", "").match("."))
-        self.assertTrue(iocingestor.artifacts.IPAddress("192.168.0.1", "").match("\."))
+        self.assertTrue(iocingestor.artifacts.IPAddress("192.168.0.1", "").match(r"\."))
         self.assertTrue(iocingestor.artifacts.IPAddress("192.168.0.1", "").match(".*"))
         self.assertTrue(
             iocingestor.artifacts.IPAddress("192[.]168.0[.]1", "").match(
-                "^192\.168\.0\.1$"
+                r"^192\.168\.0\.1$"
             )
         )
         self.assertFalse(
@@ -315,7 +315,7 @@ class TestArtifacts(unittest.TestCase):
         )
         self.assertTrue(
             iocingestor.artifacts.URL("http://example[.com/test.doc", "").match(
-                ".*\.doc"
+                r".*\.doc"
             )
         )
         # empty always matches
@@ -325,7 +325,7 @@ class TestArtifacts(unittest.TestCase):
         # should be treated as regex
         self.assertTrue(
             iocingestor.artifacts.URL("http://example[.com/test.doc", "").match(
-                ".*\.doc"
+                r".*\.doc"
             )
         )
         self.assertTrue(

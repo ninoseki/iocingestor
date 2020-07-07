@@ -8,13 +8,12 @@ class TestState(unittest.TestCase):
         self.state = State(":memory:")
 
     def test_state_updates_known_state(self):
-        result = None
         initial = ["STATE", "NAME"]
         expected = ["NEWSTATE", "NAME"]
 
         # inital save state
         self.state.save_state(initial[1], initial[0])
-        beforeUpdate = self.state.get_state(expected[1])
+        self.state.get_state(expected[1])
 
         # rewrite over same state
         self.state.save_state(expected[1], expected[0])

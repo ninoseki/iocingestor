@@ -49,7 +49,7 @@ class Ingestor:
         try:
             logger.debug(f"Opening state database '{self.config.state_path()}'")
             self.statedb = state.State(self.config.state_path())
-        except (OSError, IOError, exceptions.IngestorError):
+        except (OSError, exceptions.IngestorError):
             # Error loading state DB.
             logger.exception("Error reading state database")
             sys.exit(1)

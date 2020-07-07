@@ -1,26 +1,18 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """Fang indicators of compromise."""
 
 import json
 import os
 import re
 
-try:
-    import iocingestor.ioc_fanger.grammars as grammars
-except AttributeError:
-    import sys
-
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
-    import grammars
-
+import iocingestor.ioc_fanger.grammars as grammars
 
 FANG_DATA_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "./fang.json"))
 
 
 def _get_data_from_file(file_path):
     """Get data from the given file path."""
-    with open(file_path, "r") as f:
+    with open(file_path) as f:
         return json.loads(f.read())
 
 
@@ -33,7 +25,7 @@ def fang(text, debug=False):
     fanged_text = text
 
     if debug:
-        print("Starting text: {}".format(fanged_text))
+        print(f"Starting text: {fanged_text}")
         print("-----")
 
     fanged_text = grammars.dot_fanging_patterns.transformString(fanged_text)
@@ -49,7 +41,7 @@ def fang(text, debug=False):
 
     for mapping in fanging_mappings:
         if debug:
-            print("Mapping: {}".format(mapping))
+            print(f"Mapping: {mapping}")
 
         if mapping.get("regex"):
             find_value = mapping["find"]
@@ -64,7 +56,7 @@ def fang(text, debug=False):
             )
 
         if debug:
-            print("Text after mapping: {}".format(fanged_text))
+            print(f"Text after mapping: {fanged_text}")
             print("-----")
 
     return fanged_text
