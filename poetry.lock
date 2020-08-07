@@ -187,16 +187,16 @@ category = "dev"
 description = "Show coverage stats online via coveralls.io"
 name = "coveralls"
 optional = false
-python-versions = "*"
-version = "1.11.1"
+python-versions = ">= 3.5"
+version = "2.1.1"
 
 [package.dependencies]
-coverage = ">=3.6,<6.0"
+coverage = ">=4.1,<6.0"
 docopt = ">=0.6.1"
 requests = ">=1.0.0"
 
 [package.extras]
-yaml = ["PyYAML (>=3.10,<5.3)"]
+yaml = ["PyYAML (>=3.10)"]
 
 [[package]]
 category = "main"
@@ -965,7 +965,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "66f2150edcb3f41ff9c9b597ba060ff0b0b500c0ce6ae02a5920690dd678a9cd"
+content-hash = "a0f6b3ae9b32f3d1372b1feb08f7126e3d3762ffff495b9bce85800db88afda5"
 lock-version = "1.0"
 python-versions = "^3.6.1"
 
@@ -1069,8 +1069,8 @@ coverage = [
     {file = "coverage-5.2.tar.gz", hash = "sha256:1874bdc943654ba46d28f179c1846f5710eda3aeb265ff029e0ac2b52daae404"},
 ]
 coveralls = [
-    {file = "coveralls-1.11.1-py2.py3-none-any.whl", hash = "sha256:4b6bfc2a2a77b890f556bc631e35ba1ac21193c356393b66c84465c06218e135"},
-    {file = "coveralls-1.11.1.tar.gz", hash = "sha256:67188c7ec630c5f708c31552f2bcdac4580e172219897c4136504f14b823132f"},
+    {file = "coveralls-2.1.1-py2.py3-none-any.whl", hash = "sha256:3726d35c0f93a28631a003880e2aa6cc93c401d62bc6919c5cb497217ba30c55"},
+    {file = "coveralls-2.1.1.tar.gz", hash = "sha256:afe359cd5b350e1b3895372bda32af8f0260638c7c4a31a5c0f15aa6a96f40d9"},
 ]
 dataclasses = [
     {file = "dataclasses-0.6-py3-none-any.whl", hash = "sha256:454a69d788c7fda44efd71e259be79577822f5e3f53f029a22d08004e951dc9f"},
