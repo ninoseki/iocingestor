@@ -33,7 +33,11 @@ class Ingestor:
 
         # Configure logging with optional notifiers.
         logger.configure(**self.config.logging())
-        logger.level("NOTIFY", no=35, color="<yellow>", icon="\U0001F514")
+        try:
+            logger.level("NOTIFY", no=35, color="<yellow>", icon="\U0001F514")
+        except TypeError:
+            # logger raises TypeError if NOTIFY is already defined
+            pass
 
         logger.debug("Log handler reconfigured")
 
