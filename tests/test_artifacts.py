@@ -259,7 +259,7 @@ class TestArtifacts(unittest.TestCase):
             str(iocingestor.artifacts.IPAddress("192[.]168[.]0[.]1:9090/url", "")),
             "192.168.0.1",
         )
-        self.assertNotEquals(
+        self.assertNotEqual(
             str(iocingestor.artifacts.IPAddress("192[.]188[dot]0[.]1:9090/url", "")),
             "192.168.0.1",
         )
