@@ -391,7 +391,7 @@ description = "Python package for finding and parsing indicators of compromise f
 name = "ioc-finder"
 optional = false
 python-versions = "*"
-version = "3.1.1"
+version = "4.0.0"
 
 [package.dependencies]
 click = "*"
@@ -966,7 +966,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "c67e6530bae2d5a1efaa62af150240c828c7150655ecad20f7f14d7892e813fc"
+content-hash = "3987a42aae60fae04a5358523f4dc88101b0e535cf3c01a6abf21932d15ee787"
 lock-version = "1.0"
 python-versions = "^3.6.1"
 
@@ -1167,8 +1167,8 @@ ioc-fanger = [
     {file = "ioc_fanger-3.1.1.tar.gz", hash = "sha256:745c6ee935677916cd043c3d516ad0f5b6c6b9278456caa5755c3e7ecc905073"},
 ]
 ioc-finder = [
-    {file = "ioc_finder-3.1.1-py2.py3-none-any.whl", hash = "sha256:23f70b75fd9b949db2eaca7338bb9667f8516bd9e7454442d8c586c3c16dac19"},
-    {file = "ioc_finder-3.1.1.tar.gz", hash = "sha256:6ca92b3543e0053b3c9777ecf285d2c68bcfa161d786f7de20475b30ab8cdb98"},
+    {file = "ioc_finder-4.0.0-py2.py3-none-any.whl", hash = "sha256:ee99253a4291619a86a9b399c20648bcda7d41d403a3e5df5e21d279df9c2902"},
+    {file = "ioc_finder-4.0.0.tar.gz", hash = "sha256:caf9784071cb6d948a236c045bbb9f7a3fd75c723f4cbe5cdb06d6d357c6b6f2"},
 ]
 iocextract = [
     {file = "iocextract-1.13.1-py2.py3-none-any.whl", hash = "sha256:5d33d4eb48cc96887bf18a81cd57bee5779b1f18e0dcb0c1dede9716c930ef54"},
