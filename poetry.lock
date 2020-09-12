@@ -259,7 +259,10 @@ description = "Universal feed parser, handles RSS 0.9x, RSS 1.0, RSS 2.0, CDF, A
 name = "feedparser"
 optional = false
 python-versions = "*"
-version = "5.2.1"
+version = "6.0.0"
+
+[package.dependencies]
+sgmllib3k = "*"
 
 [[package]]
 category = "dev"
@@ -966,7 +969,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "1fa4b1cd6f7081b3572acd141c12670dec5c6453e002e4de229aef3ddfe4ff98"
+content-hash = "a1438aec1b8c6861fb9964a334ed01030d6d0ad5627b124fcab978f6a6bcb4e2"
 lock-version = "1.0"
 python-versions = "^3.6.1"
 
@@ -1109,9 +1112,8 @@ falcon = [
     {file = "falcon-2.0.0.tar.gz", hash = "sha256:eea593cf466b9c126ce667f6d30503624ef24459f118c75594a69353b6c3d5fc"},
 ]
 feedparser = [
-    {file = "feedparser-5.2.1.tar.bz2", hash = "sha256:ce875495c90ebd74b179855449040003a1beb40cd13d5f037a0654251e260b02"},
-    {file = "feedparser-5.2.1.tar.gz", hash = "sha256:bd030652c2d08532c034c27fcd7c85868e7fa3cb2b17f230a44a6bbc92519bf9"},
-    {file = "feedparser-5.2.1.zip", hash = "sha256:cd2485472e41471632ed3029d44033ee420ad0b57111db95c240c9160a85831c"},
+    {file = "feedparser-6.0.0-py2.py3-none-any.whl", hash = "sha256:351a08b59a373ad358226489750740f052e615bba093cfcc00e3bf742527979c"},
+    {file = "feedparser-6.0.0.tar.gz", hash = "sha256:a13fb1f26a7da985b51e6d1e91102fb1b1e5eb5d550a192643049a527bb24b0d"},
 ]
 filelock = [
     {file = "filelock-3.0.12-py3-none-any.whl", hash = "sha256:929b7d63ec5b7d6b71b0fa5ac14e030b3f70b75747cef1b10da9b879fef15836"},
