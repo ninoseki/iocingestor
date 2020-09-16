@@ -2,7 +2,7 @@ from typing import List, Tuple, Type
 
 import bs4
 import feedparser
-from feedparser import _parse_date
+from feedparser.datetimes import _parse_date
 
 from iocingestor.artifacts import Artifact
 from iocingestor.sources import Source
