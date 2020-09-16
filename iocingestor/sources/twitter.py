@@ -18,6 +18,7 @@ class Plugin(Source):
         access_token: str,
         access_token_secret: str,
         defanged_only: bool = True,
+        tweet_mode: str = "extended",
         **kwargs,
     ):
         self.name = name
@@ -33,6 +34,10 @@ class Plugin(Source):
         # Forward kwargs.
         # NOTE: No validation is done here, so if the config is wrong, expect bad results.
         self.kwargs = kwargs
+
+        # Set "extended" as the default tweet mode
+        if kwargs.get("tweet_mode") is None:
+            self.kwargs["tweet_mode"] = tweet_mode
 
         # Decide which endpoint to use based on passed arguments.
         # If slug and owner_screen_name, use List API.
@@ -69,7 +74,7 @@ class Plugin(Source):
 
         tweets = [
             {
-                "content": s["text"],
+                "content": s.get("full_text") or s.get("text"),
                 "id": s["id_str"],
                 "user": s["user"]["screen_name"],
                 "entities": s.get("entities", {}),
