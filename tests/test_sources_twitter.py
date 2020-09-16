@@ -48,7 +48,9 @@ class TestTwitter(unittest.TestCase):
 
     def test_run_respects_saved_state(self):
         self.twitter.run("12345")
-        self.twitter.endpoint.assert_called_once_with(since_id="12345")
+        self.twitter.endpoint.assert_called_once_with(
+            tweet_mode="extended", since_id="12345"
+        )
 
     def test_run_returns_newest_tweet_id_as_saved_state(self):
         self.twitter.endpoint.return_value = [
@@ -90,6 +92,19 @@ class TestTwitter(unittest.TestCase):
         self.assertEqual(
             "https://twitter.com/test/status/12345", artifact_list[0].reference_link
         )
+
+    def test_run_returns_artifacts_correctly_with_full_text(self):
+        self.twitter.endpoint.return_value = [
+            {
+                "full_text": "hxxp://fullurl.com/test",
+                "id_str": "12345",
+                "user": {"screen_name": "test"},
+            },
+        ]
+        saved_state, artifact_list = self.twitter.run(None)
+        self.assertEqual(len(artifact_list), 3)
+        self.assertIn("fullurl.com", [str(x) for x in artifact_list])
+        self.assertIn("http://fullurl.com/test", [str(x) for x in artifact_list])
 
     def test_run_expands_tco_links_if_available(self):
         self.twitter.endpoint.return_value = [
