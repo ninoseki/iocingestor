@@ -381,7 +381,7 @@ description = "Python package for finding and parsing indicators of compromise f
 name = "ioc-finder"
 optional = false
 python-versions = "*"
-version = "4.0.1"
+version = "5.0.0"
 
 [package.dependencies]
 click = "*"
@@ -942,7 +942,8 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "28a4405296d862de3792baba679d7eb91e37899685eb32fffeb9e12a1608ef52"
+content-hash = "e5db4c0c55d403b003207c04f67a71d277fe74503c1dd7a2f0c80afaccd3eab1"
+lock-version = "1.0"
 python-versions = "^3.6.1"
 
 [metadata.files]
@@ -974,7 +975,6 @@ beautifulsoup4 = [
     {file = "beautifulsoup4-4.9.1.tar.gz", hash = "sha256:73cc4d115b96f79c7d77c1c7f7a0a8d4c57860d1041df407dd1aae7f07a77fd7"},
 ]
 black = [
-    {file = "black-20.8b1-py3-none-any.whl", hash = "sha256:70b62ef1527c950db59062cda342ea224d772abdf6adc58b86a45421bab20a6b"},
     {file = "black-20.8b1.tar.gz", hash = "sha256:1c02557aa099101b9d21496f8a914e9ed2222ef70336404eeeac8edba836fbea"},
 ]
 certifi = [
@@ -1133,8 +1133,8 @@ ioc-fanger = [
     {file = "ioc_fanger-3.1.2.tar.gz", hash = "sha256:6679afc18257a0d7c2c6fa7b03d762f721a47415e766dd0c52d03c112aad7a64"},
 ]
 ioc-finder = [
-    {file = "ioc_finder-4.0.1-py2.py3-none-any.whl", hash = "sha256:9a4dd3fab647696958eee1faef133f64c16ded9dd12d95a33286ddf0c8fae01e"},
-    {file = "ioc_finder-4.0.1.tar.gz", hash = "sha256:52e12123f949e4172b19f26c9f3aa1a3a9cfc383b548c6278969e9def9dbd787"},
+    {file = "ioc_finder-5.0.0-py2.py3-none-any.whl", hash = "sha256:a921cdc36a49693d67dc1bde0467d3aede510d24f525334682c660e8e5b499de"},
+    {file = "ioc_finder-5.0.0.tar.gz", hash = "sha256:3ec513a4ebafe3fb367a78277c43bf57cd70fdb9cd9f8a4d37f8adf4d9e98804"},
 ]
 iocextract = [
     {file = "iocextract-1.13.1-py2.py3-none-any.whl", hash = "sha256:5d33d4eb48cc96887bf18a81cd57bee5779b1f18e0dcb0c1dede9716c930ef54"},
