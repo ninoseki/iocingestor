@@ -11,7 +11,7 @@ from iocingestor import config, exceptions, state
 from iocingestor.artifacts import Artifact
 from iocingestor.whitelists import Whitelist
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 
 class Ingestor:
