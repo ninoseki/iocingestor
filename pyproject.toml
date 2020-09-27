@@ -6,6 +6,7 @@ authors = ["Manabu Niseki <manabu.niseki@gmail.com>", "InQuest Labs <labs@inques
 homepage = "https://github.com/ninoseki/iocingestor"
 repository = "https://github.com/ninoseki/iocingestor"
 license = "GPL-2.0-or-later"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.6.1"
