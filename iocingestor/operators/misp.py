@@ -3,7 +3,16 @@ from typing import List, Optional, Type, Union, cast
 import pymisp
 from pymisp import MISPAttribute, MISPEvent
 
-from iocingestor.artifacts import URL, Artifact, Domain, Hash, IPAddress
+from iocingestor.artifacts import (
+    MD5,
+    SHA1,
+    SHA256,
+    URL,
+    Artifact,
+    Domain,
+    Hash,
+    IPAddress,
+)
 from iocingestor.operators import Operator
 
 
@@ -130,11 +139,11 @@ class Plugin(Operator):
 
     def handle_hash(self, event: MISPEvent, hash_: Hash) -> MISPEvent:
         """Handle a single hash."""
-        if hash_.hash_type() == hash_.MD5:
+        if hash_.hash_type() == MD5:
             event.add_attribute("md5", str(hash_))
-        elif hash_.hash_type() == hash_.SHA1:
+        elif hash_.hash_type() == SHA1:
             event.add_attribute("sha1", str(hash_))
-        elif hash_.hash_type() == hash_.SHA256:
+        elif hash_.hash_type() == SHA256:
             event.add_attribute("sha256", str(hash_))
         return event
 

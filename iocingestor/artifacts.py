@@ -1,27 +1,40 @@
 import ipaddress
 import re
-from typing import Optional
+from typing import Dict, Optional
 from urllib.parse import urlparse
 
 import iocextract
+from pydantic import BaseModel, Field
 
 
-class Artifact:
+class Artifact(BaseModel):
     """Artifact base class."""
+
+    artifact: str = Field(..., description="The value of the artifact")
+    source_name: str = Field(..., description="The name of the source")
+    reference_link: str = Field(
+        default="", description="The reference link of the artifact"
+    )
+    reference_text: str = Field(
+        default="", description="The reference text of the artifact"
+    )
 
     def __init__(
         self,
-        artifact,
+        artifact: str,
         source_name: str,
-        reference_link: Optional[str] = None,
-        reference_text=None,
+        reference_link: str = "",
+        reference_text: str = "",
     ):
-        self.artifact = artifact
-        self.source_name = source_name
-        self.reference_link = reference_link or ""
-        self.reference_text = reference_text or ""
+        data = {
+            "artifact": artifact,
+            "source_name": source_name,
+            "reference_link": reference_link,
+            "reference_text": reference_text,
+        }
+        super().__init__(**data)
 
-    def match(self, pattern: str):
+    def match(self, pattern: str) -> bool:
         """Return True if regex pattern matches the deobfuscated artifact, else False.
 
         May be overridden or extended by child classes.
@@ -48,14 +61,14 @@ class Artifact:
             **kwargs,
         )
 
-    def _stringify(self):
+    def _stringify(self) -> str:
         """Return str representation of the artifact.
 
         May be overridden in child classes.
         """
         return self.artifact
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self._stringify()
 
 
@@ -270,14 +283,16 @@ class Domain(Artifact):
         )
 
 
+# Types
+MD5: str = "md5"
+SHA1: str = "sha1"
+SHA256: str = "sha256"
+SHA512: str = "sha512"
+HASH_MAP: Dict[int, str] = {32: MD5, 40: SHA1, 64: SHA256, 128: SHA512}
+
+
 class Hash(Artifact):
     """Hash artifact abstraction."""
-
-    # Types
-    MD5 = "md5"
-    SHA1 = "sha1"
-    SHA256 = "sha256"
-    SHA512 = "sha512"
 
     def format_message(self, message: str, **kwargs):
         """Allow string interpolation with artifact contents.
@@ -292,18 +307,9 @@ class Hash(Artifact):
             message, hash=str(self), hash_type=self.hash_type() or "hash"
         )
 
-    def hash_type(self):
+    def hash_type(self) -> Optional[str]:
         """Return the hash type as a string, or None."""
-        if len(self.artifact) == 32:
-            return self.MD5
-        if len(self.artifact) == 40:
-            return self.SHA1
-        if len(self.artifact) == 64:
-            return self.SHA256
-        if len(self.artifact) == 128:
-            return self.SHA512
-
-        return None
+        return HASH_MAP.get(len(self.artifact))
 
 
 class Task(Artifact):
