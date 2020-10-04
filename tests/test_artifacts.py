@@ -422,26 +422,26 @@ class TestArtifacts(unittest.TestCase):
             iocingestor.artifacts.Hash(
                 "68b329da9893e34099c7d8ad5cb9c940", ""
             ).hash_type(),
-            iocingestor.artifacts.Hash.MD5,
+            "md5",
         )
         self.assertEqual(
             iocingestor.artifacts.Hash(
                 "adc83b19e793491b1c6ea0fd8b46cd9f32e592fc", ""
             ).hash_type(),
-            iocingestor.artifacts.Hash.SHA1,
+            "sha1",
         )
         self.assertEqual(
             iocingestor.artifacts.Hash(
                 "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b", ""
             ).hash_type(),
-            iocingestor.artifacts.Hash.SHA256,
+            "sha256",
         )
         self.assertEqual(
             iocingestor.artifacts.Hash(
                 "be688838ca8686e5c90689bf2ab585cef1137c999b48c70b92f67a5c34dc15697b5d11c982ed6d71be1e1e7f7b4e0733884aa97c3f7a339a8ed03577cf74be09",
                 "",
             ).hash_type(),
-            iocingestor.artifacts.Hash.SHA512,
+            "sha512",
         )
         self.assertEqual(
             iocingestor.artifacts.Hash(
