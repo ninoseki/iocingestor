@@ -19,6 +19,12 @@
       type="text/javascript"
       src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"
     ></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bulma.min.js"></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"
+    ></script>
+
     <script type="text/javascript">
       $(document).ready(function () {
         $("#table").DataTable({
@@ -53,12 +59,12 @@
 
     <link
       rel="stylesheet"
-      type="text/css"
-      href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css"
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.22/css/dataTables.bulma.min.css"
     />
   </head>
 
@@ -82,17 +88,25 @@
       </div>
     </section>
     <section class="section">
-      <table id="table">
-        <thead>
-          <tr>
-            <th>Artifact</th>
-            <th>Reference Link</th>
-            <th>Reference Text</th>
-            <th>Created Date</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <div class="container">
+        <div id="app" class="table-container">
+          <table
+            id="table"
+            class="table is-striped is-narrow is-fullwidth"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th>Artifact</th>
+                <th>Reference Link</th>
+                <th>Reference Text</th>
+                <th>Created Date</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
     </section>
   </body>
 </html>
