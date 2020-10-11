@@ -19,7 +19,7 @@ from pydantic import BaseModel
 from iocingestor.artifacts import URL, Artifact, Domain, Hash, IPAddress, Task
 from iocingestor.ioc_fanger import fang
 
-TRUNCATE_LENGTH = 140
+TRUNCATE_LENGTH = 280
 
 
 class IoC(BaseModel):

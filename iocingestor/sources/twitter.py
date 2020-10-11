@@ -45,11 +45,21 @@ class Plugin(Source):
         # If q is set, use Search API.
         # Otherwise, default to mentions API.
         self.endpoint = self.api.statuses.mentions_timeline
-        if kwargs.get("slug") and kwargs.get("owner_screen_name"):
+
+        has_owner_screen_name: bool = kwargs.get("owner_screen_name") is not None
+        has_slug_or_list_id: bool = (
+            kwargs.get("slug") or kwargs.get("list_id") is not None
+        )
+        has_screen_name_or_user_id: bool = (
+            kwargs.get("screen_name") or kwargs.get("user_id")
+        ) is not None
+        has_query: bool = kwargs.get("q") is not None
+
+        if has_slug_or_list_id and has_owner_screen_name:
             self.endpoint = self.api.lists.statuses
-        elif kwargs.get("screen_name") or kwargs.get("user_id"):
+        elif has_screen_name_or_user_id:
             self.endpoint = self.api.statuses.user_timeline
-        elif kwargs.get("q"):
+        elif has_query:
             self.endpoint = self.api.search.tweets
 
     def run(self, saved_state: str) -> Tuple[str, List[Type[Artifact]]]:
