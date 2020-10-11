@@ -4,6 +4,7 @@ import sys
 import time
 from typing import Dict, List, Type
 
+import poetry_version
 import statsd
 from loguru import logger
 
@@ -11,7 +12,7 @@ from iocingestor import config, exceptions, state
 from iocingestor.artifacts import Artifact
 from iocingestor.whitelists import Whitelist
 
-__version__ = "0.2.2"
+__version__ = str(poetry_version.extract(source_file=__file__))
 
 
 class Ingestor:
