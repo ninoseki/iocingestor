@@ -20,7 +20,7 @@ router = APIRouter()
 
 def get_db() -> Generator[sqlite3.Connection, None, None]:
     try:
-        db = sqlite3.connect(DATABASE)
+        db = sqlite3.connect(DATABASE, check_same_thread=False)
         yield db
     finally:
         db.close()
