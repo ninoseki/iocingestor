@@ -11,6 +11,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.6.1"
 aiocontextvars = "^0.2.2"
+async-exit-stack = "^1.0.1"
 beautifulsoup4 = "^4.9.1"
 contextvars = "^2.4"
 environs = "^8.0.0"
@@ -32,6 +33,7 @@ sgmllib3k = "^1.0.0"
 statsd = "^3.3.0"
 twitter = "^1.18.0"
 uvicorn = "^0.12.1"
+async-generator = "^1.10"
 
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
