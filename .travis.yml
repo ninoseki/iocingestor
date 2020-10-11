@@ -11,7 +11,7 @@ install:
   - poetry install
 
 script:
-  - nose2 --with-coverage --coverage-report xml
+  - pytest -v --cov=iocingestor --cov-report=term-missing
 
 after_success:
   - coveralls

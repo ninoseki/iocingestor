@@ -598,22 +598,6 @@ version = "1.5.0"
 
 [[package]]
 category = "dev"
-description = "unittest2 with plugins, the succesor to nose"
-name = "nose2"
-optional = false
-python-versions = "*"
-version = "0.9.2"
-
-[package.dependencies]
-coverage = ">=4.4.1"
-six = ">=1.7"
-
-[package.extras]
-coverage_plugin = ["coverage (>=4.4.1)"]
-doc = ["Sphinx (>=1.6.5)", "sphinx-rtd-theme", "mock"]
-
-[[package]]
-category = "dev"
 description = "Core utilities for Python packages"
 name = "packaging"
 optional = false
@@ -785,6 +769,21 @@ version = ">=0.12"
 [package.extras]
 checkqa_mypy = ["mypy (0.780)"]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
+
+[[package]]
+category = "dev"
+description = "Pytest plugin for measuring coverage."
+name = "pytest-cov"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+version = "2.10.1"
+
+[package.dependencies]
+coverage = ">=4.4"
+pytest = ">=4.6"
+
+[package.extras]
+testing = ["fields", "hunter", "process-tests (2.0.2)", "six", "pytest-xdist", "virtualenv"]
 
 [[package]]
 category = "dev"
@@ -1096,7 +1095,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "jaraco.test (>=3.2.0)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [metadata]
-content-hash = "d3276577166f74f4b954bde0c122e06835df91ca5ef110bf44c0df7a830c68ce"
+content-hash = "9b6a2e89c58f277d24a9d3353a06ba5d0c03392f4b4527d9854886bdfb4c97f8"
 python-versions = "^3.6.1"
 
 [metadata.files]
@@ -1353,10 +1352,6 @@ nodeenv = [
     {file = "nodeenv-1.5.0-py2.py3-none-any.whl", hash = "sha256:5304d424c529c997bc888453aeaa6362d242b6b4631e90f3d4bf1b290f1c84a9"},
     {file = "nodeenv-1.5.0.tar.gz", hash = "sha256:ab45090ae383b716c4ef89e690c41ff8c2b257b85b309f01f3654df3d084bd7c"},
 ]
-nose2 = [
-    {file = "nose2-0.9.2-py2.py3-none-any.whl", hash = "sha256:fd4b84c65ecea869080a23bdb8916716f5363df3b899933991c861ada8aa3f48"},
-    {file = "nose2-0.9.2.tar.gz", hash = "sha256:8762f77925bbafcdf38331e0e2ee718756fb75ff74b1f9097cd08731ad59ab5e"},
-]
 packaging = [
     {file = "packaging-20.4-py2.py3-none-any.whl", hash = "sha256:998416ba6962ae7fbd6596850b80e17859a5753ba17c32284f67bfff33784181"},
     {file = "packaging-20.4.tar.gz", hash = "sha256:4357f74f47b9c12db93624a82154e9b120fa8293699949152b22065d556079f8"},
@@ -1422,6 +1417,10 @@ pyrsistent = [
 pytest = [
     {file = "pytest-6.1.1-py3-none-any.whl", hash = "sha256:7a8190790c17d79a11f847fba0b004ee9a8122582ebff4729a082c109e81a4c9"},
     {file = "pytest-6.1.1.tar.gz", hash = "sha256:8f593023c1a0f916110285b6efd7f99db07d59546e3d8c36fc60e2ab05d3be92"},
+]
+pytest-cov = [
+    {file = "pytest-cov-2.10.1.tar.gz", hash = "sha256:47bd0ce14056fdd79f93e1713f88fad7bdcc583dcd7783da86ef2f085a0bb88e"},
+    {file = "pytest_cov-2.10.1-py2.py3-none-any.whl", hash = "sha256:45ec2d5182f89a81fc3eb29e3d1ed3113b9e9a873bcddb2a71faaab066110191"},
 ]
 pytest-env = [
     {file = "pytest-env-0.6.2.tar.gz", hash = "sha256:7e94956aef7f2764f3c147d216ce066bf6c42948bb9e293169b1b1c880a580c2"},
