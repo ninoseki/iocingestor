@@ -44,6 +44,22 @@
         return false;
       }
 
+      function autoLink() {
+        const elements = document.getElementsByTagName("tr");
+        const rows = Array.from(elements);
+        rows.forEach((row) => {
+          row.innerHTML = Autolinker.link(row.innerHTML, {
+            replaceFn: function (match) {
+              switch (match.getType()) {
+                case "url":
+                  const url = match.getUrl();
+                  return isAllowedWebsite(url);
+              }
+            },
+          });
+        });
+      }
+
       $(document).ready(function () {
         $("#table").DataTable({
           ajax: {
@@ -56,20 +72,8 @@
             { data: "referenceText" },
             { data: "createdDate" },
           ],
-          initComplete: function () {
-            const elements = document.getElementsByTagName("tr");
-            const rows = Array.from(elements);
-            rows.forEach((row) => {
-              row.innerHTML = Autolinker.link(row.innerHTML, {
-                replaceFn: function (match) {
-                  switch (match.getType()) {
-                    case "url":
-                      const url = match.getUrl();
-                      return isAllowedWebsite(url);
-                  }
-                },
-              });
-            });
+          drawCallback: function () {
+            autoLink();
           },
         });
       });
