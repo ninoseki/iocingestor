@@ -36,7 +36,10 @@ def get_artifacts(
     db: sqlite3.Connection, table: str, limit: int = 100, offset: int = 0
 ) -> List[Artifact]:
     cursor = db.cursor()
-    cursor.execute(f"SELECT * FROM {table} LIMIT ? OFFSET ?", (limit, offset))
+    cursor.execute(
+        f"SELECT * FROM {table} ORDER BY created_date DESC LIMIT ? OFFSET ?",
+        (limit, offset),
+    )
 
     artifacts: List[Artifact] = []
     columns = [c[0] for c in cursor.description]
