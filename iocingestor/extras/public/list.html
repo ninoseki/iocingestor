@@ -62,6 +62,7 @@
 
       $(document).ready(function () {
         $("#table").DataTable({
+          ordering: false,
           ajax: {
             url: `/api/tables${window.location.pathname}`,
             dataSrc: "",
@@ -115,7 +116,7 @@
           <table
             id="table"
             class="table is-striped is-narrow is-fullwidth"
-            style="width: 100%"
+            style="word-break: break-all"
           >
             <thead>
               <tr>
