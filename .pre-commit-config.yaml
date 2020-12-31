@@ -17,7 +17,7 @@ repos:
         args: [--py37-plus]
 
   - repo: https://github.com/timothycrosley/isort
-    rev: 5.6.4
+    rev: 5.7.0
     hooks:
       - id: isort
         additional_dependencies: [toml]
