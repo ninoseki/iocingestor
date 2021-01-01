@@ -1,7 +1,7 @@
 # iocingestor
 
 [![PyPI version](https://badge.fury.io/py/iocingestor.svg)](https://badge.fury.io/py/iocingestor)
-[![Build Status](https://travis-ci.com/ninoseki/iocingestor.svg?branch=master)](https://travis-ci.com/ninoseki/iocingestor)
+![Python CI](https://github.com/ninoseki/iocingestor/workflows/Python%20CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/ninoseki/iocingestor/badge.svg?branch=master)](https://coveralls.io/github/ninoseki/iocingestor?branch=master)
 [![CodeFactor](https://www.codefactor.io/repository/github/ninoseki/iocingestor/badge)](https://www.codefactor.io/repository/github/ninoseki/iocingestor)
 
