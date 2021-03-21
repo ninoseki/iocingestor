@@ -1,13 +1,15 @@
-from typing import List, Tuple, Type
+from typing import List, Optional, Tuple, Type
 
 import jsonpath_rw
 
 from iocingestor.artifacts import Artifact
-from iocingestor.sources import Source
+from iocingestor.sources import Source, make_artifacts_unique
 
 
 class AbstractPlugin(Source):
-    def __init__(self, name: str, paths, reference=None, **kwargs):
+    def __init__(
+        self, name: str, paths: List[str], reference: Optional[str] = None, **kwargs
+    ):
         """Set up JSON path expressions.
 
         Extend in child class.
@@ -46,4 +48,4 @@ class AbstractPlugin(Source):
                         match.value, reference, include_nonobfuscated=True
                     )
 
-        return saved_state, artifact_list
+        return saved_state, make_artifacts_unique(artifact_list)

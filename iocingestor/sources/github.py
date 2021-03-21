@@ -1,9 +1,9 @@
 import datetime
-from typing import List, Optional, Tuple, Type
+from typing import List, Optional, Tuple
 
 import requests
 
-from iocingestor.artifacts import Artifact, Task
+from iocingestor.artifacts import Task
 from iocingestor.sources import Source
 
 SEARCH_URL = "https://api.github.com/search/repositories"
@@ -37,7 +37,7 @@ class Plugin(Source):
 
         return repo_list
 
-    def run(self, saved_state: str) -> Tuple[str, List[Type[Artifact]]]:
+    def run(self, saved_state: str) -> Tuple[str, List[Task]]:
         """Returns a list of artifacts and the saved state"""
         # If no saved_state, search max 1 day ago.
         if not saved_state:

@@ -87,5 +87,5 @@ def index_html():
 def table_html(table: Optional[str] = None):
     if table:
         return read_html("list.html")
-    else:
-        return read_html("index.html")
+
+    return read_html("index.html")

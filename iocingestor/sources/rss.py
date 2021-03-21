@@ -5,7 +5,7 @@ import feedparser
 from feedparser.datetimes import _parse_date
 
 from iocingestor.artifacts import Artifact
-from iocingestor.sources import Source
+from iocingestor.sources import Source, make_artifacts_unique
 
 AFTERIOC = "Indicators of Compromise"
 
@@ -64,4 +64,4 @@ class Plugin(Source):
 
             saved_state = item.get("published") or item.get("updated")
 
-        return saved_state, self.make_artifacts_unique(artifacts)
+        return saved_state, make_artifacts_unique(artifacts)
