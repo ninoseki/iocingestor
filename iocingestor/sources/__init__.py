@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from hashlib import md5
 from typing import List, Type
 from urllib.parse import urlparse
@@ -33,7 +34,48 @@ class IoC(BaseModel):
         return self.urls + self.domains + self.ips + self.hashes
 
 
-class Source:
+def make_artifacts_unique(artifacts: List[Type[Artifact]]) -> List[Type[Artifact]]:
+    memo = set()
+    artifacts_ = []
+    for artifact in artifacts:
+        text = (
+            artifact.artifact
+            + artifact.source_name
+            + artifact.reference_link
+            + artifact.reference_text
+        )
+        key = md5(text.encode()).hexdigest()
+
+        if key not in memo:
+            artifacts_.append(artifact)
+
+        memo.add(key)
+
+    return artifacts_
+
+
+def extract_iocs(content: str, strict=False) -> IoC:
+    urls = parse_urls(content, False)
+    if strict:
+        urls_ = []
+        for url in urls:
+            if not url.startswith("http://") and not url.startswith("https://"):
+                urls_.append(url)
+        # Remove obfuscated URLs (e.g. hxxp://google.co.jp)
+        content = _remove_items(urls_, content)
+
+    domains = parse_domain_names(content)
+    ips = parse_ipv4_addresses(content) + parse_ipv6_addresses(content)
+    hashes = (
+        parse_md5s(content)
+        + parse_sha1s(content)
+        + parse_sha256s(content)
+        + parse_sha512s(content)
+    )
+    return IoC(urls=urls, domains=domains, ips=ips, hashes=hashes)
+
+
+class Source(ABC):
     """Base class for all Source plugins.
 
     Note: This is an abstract class. You must override ``__init__`` and ``run``
@@ -42,6 +84,7 @@ class Source:
     with an underscore to denote a ``_private_method``.
     """
 
+    @abstractmethod
     def __init__(self, name: str, *args, **kwargs):
         """Override this constructor in child classes.
 
@@ -52,6 +95,7 @@ class Source:
         """
         raise NotImplementedError()
 
+    @abstractmethod
     def run(self, saved_state: str):
         """Run and return ``(saved_state, list(Artifact))``.
 
@@ -67,31 +111,11 @@ class Source:
         """
         raise NotImplementedError()
 
-    def _extract_iocs(self, content: str, strict=False) -> IoC:
-        urls = parse_urls(content, False)
-        if strict:
-            urls_ = []
-            for url in urls:
-                if not url.startswith("http://") and not url.startswith("https://"):
-                    urls_.append(url)
-            # Remove obfuscated URLs (e.g. hxxp://google.co.jp)
-            content = _remove_items(urls_, content)
-
-        domains = parse_domain_names(content)
-        ips = parse_ipv4_addresses(content) + parse_ipv6_addresses(content)
-        hashes = (
-            parse_md5s(content)
-            + parse_sha1s(content)
-            + parse_sha256s(content)
-            + parse_sha512s(content)
-        )
-        return IoC(urls=urls, domains=domains, ips=ips, hashes=hashes)
-
     def nonobfuscated_iocs(self, content: str) -> IoC:
-        return self._extract_iocs(content, strict=True)
+        return extract_iocs(content, strict=True)
 
     def all_iocs(self, content: str) -> IoC:
-        return self._extract_iocs(fang(content))
+        return extract_iocs(fang(content))
 
     def obfuscated_iocs(self, content: str):
         nonobfuscated_iocs = self.nonobfuscated_iocs(content)
@@ -234,22 +258,3 @@ class Source:
         logger.debug(f"Found {len(artifact_list)} total artifacts")
         logger.debug(f"Type breakdown: {artifact_type_count}")
         return artifact_list
-
-    def make_artifacts_unique(self, artifacts):
-        memo = set()
-        artifacts_ = []
-        for artifact in artifacts:
-            text = (
-                artifact.artifact
-                + artifact.source_name
-                + artifact.reference_link
-                + artifact.reference_text
-            )
-            key = md5(text.encode()).hexdigest()
-
-            if key not in memo:
-                artifacts_.append(artifact)
-
-            memo.add(key)
-
-        return artifacts_

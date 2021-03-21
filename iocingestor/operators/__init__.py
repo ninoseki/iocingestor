@@ -1,10 +1,11 @@
 import re
+from abc import ABC, abstractmethod
 from typing import List, Optional, Type
 
 from iocingestor.artifacts import Artifact
 
 
-class Operator:
+class Operator(ABC):
     """Base class for all Operator plugins.
 
     Note: This is an abstract class. You must extend ``__init__`` and call
@@ -50,6 +51,7 @@ class Operator:
         self.filter_string = filter_string or ""
         self.allowed_sources = allowed_sources or []
 
+    @abstractmethod
     def handle_artifact(self, artifact: Type[Artifact]):
         """Override with the same signature.
 

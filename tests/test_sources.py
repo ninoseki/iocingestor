@@ -4,25 +4,18 @@ import iocingestor.artifacts
 import iocingestor.sources
 
 
+class DummySource(iocingestor.sources.Source):
+    def __init__(self, name: str):
+        self.name = name
+
+    def run(self, saved_state: str):
+        return saved_state, []
+
+
 class TestSources(unittest.TestCase):
     def setUp(self):
         # patch init
-        self.orig_init = iocingestor.sources.Source.__init__
-        iocingestor.sources.Source.__init__ = lambda x: None
-        self.source = iocingestor.sources.Source()
-        self.source.name = "test"
-
-    def tearDown(self):
-        # unpatch init
-        iocingestor.sources.Source.__init__ = self.orig_init
-
-    def test_init_raises_not_implemented(self):
-        with self.assertRaises(NotImplementedError):
-            self.orig_init(self.source, self.source.name)
-
-    def test_run_raises_not_implemented(self):
-        with self.assertRaises(NotImplementedError):
-            self.source.run(None)
+        self.source = DummySource("test")
 
     def test_truncate_length_is_respected(self):
         orig_truncate = iocingestor.sources.TRUNCATE_LENGTH

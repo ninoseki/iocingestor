@@ -4,19 +4,17 @@ import iocingestor.artifacts
 import iocingestor.operators
 
 
+class DummyOperator(iocingestor.operators.Operator):
+    def handle_artifact(self, artifact):
+        self.artifacts.append(artifact)
+
+
 class TestOperators(unittest.TestCase):
     def test_default_artifact_types_is_empty(self):
-        self.assertEqual(iocingestor.operators.Operator().artifact_types, [])
-
-    def test_handle_artifact_raises_not_implemented(self):
-        with self.assertRaises(NotImplementedError):
-            iocingestor.operators.Operator().handle_artifact(None)
+        self.assertEqual(DummyOperator().artifact_types, [])
 
     def test_process_includes_only_artifact_types(self):
-        iocingestor.operators.Operator.handle_artifact = lambda x, y: x.artifacts.append(
-            y
-        )
-        operator = iocingestor.operators.Operator()
+        operator = DummyOperator()
         operator.artifact_types = [iocingestor.artifacts.Domain]
         operator.artifacts = []
 
@@ -61,17 +59,11 @@ class TestOperators(unittest.TestCase):
             iocingestor.artifacts.URL,
         ]
         self.assertEqual(
-            iocingestor.operators.Operator(
-                artifact_types=artifact_types
-            ).artifact_types,
-            artifact_types,
+            DummyOperator(artifact_types=artifact_types).artifact_types, artifact_types,
         )
 
     def test_process_includes_artifact_iff_filter_matches(self):
-        iocingestor.operators.Operator.handle_artifact = lambda x, y: x.artifacts.append(
-            y
-        )
-        operator = iocingestor.operators.Operator(filter_string="example.com")
+        operator = DummyOperator(filter_string="example.com")
         operator.artifact_types = [
             iocingestor.artifacts.Domain,
             iocingestor.artifacts.IPAddress,
@@ -126,7 +118,7 @@ class TestOperators(unittest.TestCase):
         iocingestor.operators.Operator.handle_artifact = lambda x, y: x.artifacts.append(
             y
         )
-        operator = iocingestor.operators.Operator()
+        operator = DummyOperator()
         operator.artifact_types = [
             iocingestor.artifacts.Domain,
             iocingestor.artifacts.IPAddress,
@@ -167,10 +159,7 @@ class TestOperators(unittest.TestCase):
         self.assertIn(artifact_list[3], operator.artifacts)
 
     def test_regex_allowed_sources(self):
-        iocingestor.operators.Operator.handle_artifact = lambda x, y: x.artifacts.append(
-            y
-        )
-        operator = iocingestor.operators.Operator(allowed_sources=["source-.*"])
+        operator = DummyOperator(allowed_sources=["source-.*"])
         operator.artifact_types = [
             iocingestor.artifacts.Domain,
             iocingestor.artifacts.IPAddress,

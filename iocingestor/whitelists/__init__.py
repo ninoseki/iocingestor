@@ -15,11 +15,13 @@ class Whitelist:
         return value in self.values
 
     def _load_path(self, path: str):
-        if Path(path).is_file():
-            with open(path) as f:
-                data = json.load(f)
-                list_ = data.get("list", [])
-                self.values.update(list_)
+        if not Path(path).is_file():
+            return
+
+        with open(path) as f:
+            data = json.load(f)
+            list_ = data.get("list", [])
+            self.values.update(list_)
 
     def _load_paths(self):
         for path in self.paths:
