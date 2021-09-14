@@ -56,14 +56,16 @@ def read_html(filename: str = "index.html", current_dir: Path = CURRENT_DIR) -> 
 
 
 @router.get(
-    "/api/tables", response_model=List[str],
+    "/api/tables",
+    response_model=List[str],
 )
 def tables(db: sqlite3.Connection = Depends(get_db)):
     return get_tables(db)
 
 
 @router.get(
-    "/api/tables/{table}", response_model=List[Artifact],
+    "/api/tables/{table}",
+    response_model=List[Artifact],
 )
 def artifacts(
     table: str,

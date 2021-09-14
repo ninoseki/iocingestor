@@ -59,7 +59,8 @@ class TestOperators(unittest.TestCase):
             iocingestor.artifacts.URL,
         ]
         self.assertEqual(
-            DummyOperator(artifact_types=artifact_types).artifact_types, artifact_types,
+            DummyOperator(artifact_types=artifact_types).artifact_types,
+            artifact_types,
         )
 
     def test_process_includes_artifact_iff_filter_matches(self):
@@ -115,8 +116,8 @@ class TestOperators(unittest.TestCase):
     def test_process_includes_artifact_iff_source_name_is_allowed_or_allowed_is_empty(
         self,
     ):
-        iocingestor.operators.Operator.handle_artifact = lambda x, y: x.artifacts.append(
-            y
+        iocingestor.operators.Operator.handle_artifact = (
+            lambda x, y: x.artifacts.append(y)
         )
         operator = DummyOperator()
         operator.artifact_types = [

@@ -249,7 +249,8 @@ class TestArtifacts(unittest.TestCase):
             "192.168.0.1",
         )
         self.assertEqual(
-            str(iocingestor.artifacts.IPAddress("192.168.0.1:9090", "")), "192.168.0.1",
+            str(iocingestor.artifacts.IPAddress("192.168.0.1:9090", "")),
+            "192.168.0.1",
         )
         self.assertEqual(
             str(iocingestor.artifacts.IPAddress("192.168.0.1:9090/url", "")),
