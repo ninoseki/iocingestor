@@ -54,9 +54,21 @@ class TestTwitter(unittest.TestCase):
 
     def test_run_returns_newest_tweet_id_as_saved_state(self):
         self.twitter.endpoint.return_value = [
-            {"text": "test", "id_str": "12346", "user": {"screen_name": "test"},},
-            {"text": "test", "id_str": "12345", "user": {"screen_name": "test"},},
-            {"text": "test", "id_str": "12344", "user": {"screen_name": "test"},},
+            {
+                "text": "test",
+                "id_str": "12346",
+                "user": {"screen_name": "test"},
+            },
+            {
+                "text": "test",
+                "id_str": "12345",
+                "user": {"screen_name": "test"},
+            },
+            {
+                "text": "test",
+                "id_str": "12344",
+                "user": {"screen_name": "test"},
+            },
         ]
         saved_state, artifact_list = self.twitter.run(None)
         self.assertEqual(saved_state, "12346")
@@ -64,14 +76,22 @@ class TestTwitter(unittest.TestCase):
     def test_run_supports_all_endpoints(self):
         # both supported return formats
         self.twitter.endpoint.return_value = [
-            {"text": "test", "id_str": "12345", "user": {"screen_name": "test"},},
+            {
+                "text": "test",
+                "id_str": "12345",
+                "user": {"screen_name": "test"},
+            },
         ]
         saved_state, artifact_list = self.twitter.run(None)
         self.assertEqual(saved_state, "12345")
 
         self.twitter.endpoint.return_value = {
             "statuses": [
-                {"text": "test", "id_str": "12345", "user": {"screen_name": "test"},},
+                {
+                    "text": "test",
+                    "id_str": "12345",
+                    "user": {"screen_name": "test"},
+                },
             ]
         }
         saved_state, artifact_list = self.twitter.run(None)

@@ -68,7 +68,10 @@ class TestSources(unittest.TestCase):
     def test_nonobfuscated_urls_are_included_if_specified(self):
         content = "hxxp://someurl.com/test http://noturl.com/test"
 
-        artifact_list = self.source.process_element(content, "link",)
+        artifact_list = self.source.process_element(
+            content,
+            "link",
+        )
         self.assertIn("http://someurl.com/test", [str(x) for x in artifact_list])
         self.assertIn("someurl.com", [str(x) for x in artifact_list])
         self.assertEqual(len(artifact_list), 3)

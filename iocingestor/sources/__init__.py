@@ -55,7 +55,7 @@ def make_artifacts_unique(artifacts: List[Type[Artifact]]) -> List[Type[Artifact
 
 
 def extract_iocs(content: str, strict=False) -> IoC:
-    urls = parse_urls(content, False)
+    urls = parse_urls(content, parse_urls_without_scheme=False)
     if strict:
         urls_ = []
         for url in urls:

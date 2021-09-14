@@ -41,7 +41,9 @@ class TestWeb(unittest.TestCase):
             httpretty.GET,
             "http://example.mock/list.txt",
             body="http://example.com/test",
-            adding_headers={"Last-Modified": "test",},
+            adding_headers={
+                "Last-Modified": "test",
+            },
         )
 
         saved_state, artifacts = self.web.run(None)
