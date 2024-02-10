@@ -33,7 +33,7 @@ requests = "^2.26.0"
 sgmllib3k = "^1.0.0"
 statsd = "^3.3.0"
 twitter = "^1.19.3"
-uvicorn = {extras = ["standard"], version = "^0.15.0"}
+uvicorn = {extras = ["standard"], version = "^0.27.0"}
 
 [tool.poetry.dev-dependencies]
 autoflake = "^1.4"
